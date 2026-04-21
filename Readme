@@ -1,0 +1,34 @@
+# 🧠 AI Resume Screening Chatbot
+
+An AI-powered recruiter assistant that analyzes and shortlists candidates from multiple resumes using NLP and semantic search.
+
+## 🚀 Features
+- Upload multiple resumes (PDF)
+- Extract skills and experience
+- Semantic search using embeddings
+- Candidate ranking with match score
+- Chat-based querying interface
+
+## 🛠 Tech Stack
+- Streamlit
+- LangChain (RAG)
+- FAISS
+- HuggingFace Embeddings
+- Groq LLaMA 3.1
+
+## 🧠 Architecture
+1. Upload resumes
+2. Extract text from PDFs
+3. Split into chunks
+4. Convert into embeddings
+5. Store in FAISS vector database
+6. Retrieve relevant chunks based on query
+7. Generate response using LLM
+
+## 🌐 Live Demo
+https://rag-chatbot-mjuv6w8amagwrhzfrjdxcj.streamlit.app/
+
+## 📌 Future Work
+- Improve ranking algorithm
+- Add analytics dashboard
+- Support DOCX files

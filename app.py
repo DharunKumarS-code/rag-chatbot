@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ✅ API KEY HANDLING (LOCAL + CLOUD)
-if "GROQ_API_KEY" in st.secrets:
+try:
     api_key = st.secrets["GROQ_API_KEY"]
-else:
+except Exception:
     api_key = os.getenv("GROQ_API_KEY")
 
 # LangChain imports
@@ -43,10 +43,13 @@ with st.sidebar:
         accept_multiple_files=True
     )
 
+    st.markdown("### 📊 Status")
+    resume_count = len(st.session_state.uploaded_names)
     if st.session_state.vectorstore:
-        st.success("✅ Resumes processed")
+        st.success(f"✅ {resume_count} resume(s) loaded")
+        st.info("🧠 Vector database ready")
     else:
-        st.warning("⏳ Upload resumes")
+        st.warning("⏳ No resumes uploaded yet")
 
     if st.button("🗑️ Clear Chat"):
         st.session_state.chat_history = []
@@ -105,6 +108,17 @@ if uploaded_files:
 
 # ---------------- CHAT ----------------
 query = st.chat_input("Ask about candidates...")
+
+# Welcome message (only when no chat history)
+if not st.session_state.chat_history:
+    with st.chat_message("assistant"):
+        st.markdown("""👋 **Welcome to AI Resume Screening Chatbot**
+
+Upload resumes and ask questions like:
+- 🏆 "Who is the best candidate?"
+- 🐍 "Find candidates with Python"
+- 🤖 "Rank candidates for AI role"
+""")
 
 # Show chat history
 for msg in st.session_state.chat_history:
@@ -172,3 +186,5 @@ Question:
                         "role": "assistant",
                         "content": output
                     })
+
+                

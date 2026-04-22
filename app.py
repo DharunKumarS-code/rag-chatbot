@@ -100,6 +100,11 @@ if uploaded_files:
                 model_name="all-MiniLM-L6-v2"
             )
 
+            if not docs:
+                st.error("⚠️ No text could be extracted from the uploaded PDFs. Make sure they are not scanned/image-based.")
+                st.session_state.uploaded_names = []
+                st.stop()
+
             vectorstore = FAISS.from_documents(docs, embeddings)
             st.session_state.vectorstore = vectorstore
 
